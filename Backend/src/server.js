@@ -5,6 +5,7 @@ import signupRoute from "./Routes/signupRoute.js"
 import loginRoute from "./Routes/loginRoute.js"
 import subscriptionRoute from "./Routes/subscriptionRoute.js"
 import cors from "cors"
+import job from "./Lib/cron.js"
 
 dotenv.config()
 
@@ -21,6 +22,7 @@ app.get("/",(req,res) => {
 
 app.use(cors())
 app.use(express.json())
+job.start()
 
 app.use("/api/auth", signupRoute)
 app.use("/api/auth", loginRoute)
