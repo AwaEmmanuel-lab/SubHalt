@@ -6,12 +6,12 @@ const fillsub =  async (req,res) => {
         const {name, url, startDate, endDate, amount} = req.body
 
         if(!url ||!startDate || !endDate || !amount || !name){
-            return res.status(400).json({error: "All fields are required"})
+            return res.status(400).json({message: "All fields are required"})
         }
 
         if(amount < 0){
             res.status(201).json({
-                error: "Amount cannot be less than 0"
+                message: "Amount cannot be less than 0"
             })
         }
 

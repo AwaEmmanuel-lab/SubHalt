@@ -15,13 +15,13 @@ const updatesub = async (req, res) => {
 
         if(!url || !name || !startDate || !endDate || amount === undefined){
             return res.status(400).json({
-                error: "All fields are required"
+                message: "All fields are required"
             })
         }
 
         if(amount < 0){
             return res.status(400).json({
-                error: "Amount cannot be less that Zero"
+                message: "Amount cannot be less that Zero"
             })
         }
 
@@ -39,7 +39,7 @@ const updatesub = async (req, res) => {
 
     if(!sub){
         return res.status(404).json({
-            error:"Subscription not found"
+            message:"Subscription not found"
         })
     }
 

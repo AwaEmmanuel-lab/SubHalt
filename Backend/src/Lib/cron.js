@@ -3,7 +3,7 @@ import http from "http"
 
 const job = new CronJob("0 */14 * * * *",
     () => {
-        http.get("http://localhost:5001/api/subscription/getsub", (res) => {
+        http.get("https://subhalt-2.onrender.com/api/subscription/getsub", (res) => {
             if(res.statusCode >= 200 && res.statusCode < 300){
                 console.log("get request sent succesfully")
             }else{

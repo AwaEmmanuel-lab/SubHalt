@@ -17,7 +17,7 @@ const deletesub = async (req, res) => {
     
         if(!sub){
             return res.status(404).json({
-                error: "subscription not found"
+                message: "subscription not found"
             })
         }
     

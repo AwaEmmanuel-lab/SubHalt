@@ -13,17 +13,17 @@ const signup = async (req,res) => {
         const {username, email, password} = req.body
 
     if(!username || !email ||!password){
-        return res.status(400).json({error: "All fields required"})
+        return res.status(400).json({message: "All fields required"})
     }
 
     const existingUser = await User.findOne({email})
 
     if(existingUser){
-        return res.status(400).json({error: "user already exist"})
+        return res.status(400).json({message: "user already exist"})
     }
 
     if(password.length < 8){
-        return res.status(400).json({error: "Password must be at least 8 characters"})
+        return res.status(400).json({message: "Password must be at least 8 characters"})
     }
 
      const hashedPassword = await bcrypt.hash(password, 10)

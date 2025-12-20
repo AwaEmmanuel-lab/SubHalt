@@ -11,7 +11,7 @@ const login = async (req, res) => {
         const {email, password} = req.body
 
         if(!email || !password){
-            return res.status(400).json({error: "All fields must be filled"})
+            return res.status(400).json({message: "All fields must be filled"})
         }
 
         const user = await User.findOne({email})
@@ -23,7 +23,7 @@ const login = async (req, res) => {
         const isMatch = await user.comparepassword(password)
 
         if(!isMatch){
-            return res.status(400).json({ error: "Invalid credentials" });
+            return res.status(400).json({ message: "Invalid credentials" });
         }
 
         const token = gettoken(user._id)
