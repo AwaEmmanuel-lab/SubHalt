@@ -2,7 +2,7 @@ import {create} from "zustand";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
-const provider = create((set) => ({
+const useAuthStore = create((set) => ({
     user:null,
     token :null,
     loading: false,
@@ -244,4 +244,4 @@ const provider = create((set) => ({
 
 }))
 
-export default provider
+export default useAuthStore

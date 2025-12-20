@@ -115,7 +115,7 @@ const styles1 = (isActive: any) => {
   upmosttext:{
     paddingBottom:48,
     fontSize:42,
-    fontFamily:"cursive"
+    //fontFamily:"cursive"
   },
   cardviewContainer:{
     marginEnd:16,
@@ -127,13 +127,14 @@ const styles1 = (isActive: any) => {
     shadowRadius:15,
     borderRadius:15,
     padding:16,
-    backgroundColor: "white"
+    backgroundColor: "white",
+    elevation:8
   },
   textinput:{
     alignSelf: "stretch",
-    width:"100%",
+    flex:1,
     borderWidth:1,
-    padding:13,
+    padding:4,
     borderRadius:15,
     borderColor: isActive? "white": "white",
     fontSize:16,
@@ -151,7 +152,7 @@ const styles1 = (isActive: any) => {
     borderWidth: 1,
     borderRadius: 15,
     marginTop: 8,
-    paddingVertical:4,
+    //paddingVertical:4,
     borderColor:"#d4d3d3ff",
     backgroundColor: "#ffffffff",
   },

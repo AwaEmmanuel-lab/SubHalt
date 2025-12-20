@@ -1,24 +1,36 @@
-import { StyleSheet, Text, View, TextInput, Platform, TouchableOpacity} from "react-native";
+import { StyleSheet, Text, View, TextInput, Platform, TouchableOpacity, KeyboardAvoidingView} from "react-native";
 import * as React from "react"
 import {Ionicons} from "@expo/vector-icons";
 import { useState } from "react";
 import { Link } from "expo-router";
+import useAuthStore from "@/hooks/provider";
 
 
 export default function Index() {
 
   const [isActive, setisActive] = useState(false)
   const [seepassword, setseepassword] = useState(false)
+  const [name, setname] = useState("")
+  const [email, setemail] = useState("")
+  const [password, setpassword] = useState("")
 
+  const {signupuser} = useAuthStore()
+
+  const handleclickonsignup = () => {
+    signupuser(name, email, password)
+  }
+  
   const toggleeyebutton = () => {
     setseepassword(!seepassword)
   }
 
+  const platform = Platform.OS === "ios"
+
   const styles = styles1(isActive)
   return (
-    <View
-      style={styles.container}
-    >
+    
+    <KeyboardAvoidingView behavior= {platform?"padding":"height"} style = {styles.container}>
+
       <Text style = {styles.upmosttext}>SubHalt</Text>
       <View style = {styles.cardviewContainer}>
         {/* for the header */}
@@ -35,6 +47,10 @@ export default function Index() {
             <TextInput
             placeholder="Username"multiline = {false}
             underlineColorAndroid="transparent"
+            value= {name}
+            onChangeText={(text) => {
+              setname(text)
+            }}
             style = {styles.textinput}
             onFocus={() => {
               setisActive(true)
@@ -53,6 +69,10 @@ export default function Index() {
             placeholder="Email"
             multiline = {false}
             underlineColorAndroid="transparent"
+            value= {email}
+            onChangeText={(text) => {
+              setemail(text)
+            }}
             style = {styles.textinput}
             onFocus={() => {
               setisActive(true)
@@ -77,6 +97,10 @@ export default function Index() {
             <TextInput
             placeholder="Password"multiline = {false}
             underlineColorAndroid="transparent"
+            value= {password}
+            onChangeText={(text) => {
+              setpassword(text)
+            }}
             style = {styles.textinput}
             secureTextEntry = {seepassword}
             />
@@ -96,7 +120,11 @@ export default function Index() {
         </View>
         {/* FOR THE SUBMIT BUTTON */}
         <View style = {styles.containerforbutton}>
-          <TouchableOpacity style = {styles.touchablebutton}>
+          <TouchableOpacity style = {styles.touchablebutton}
+            onPress={() => {
+              handleclickonsignup()
+            }}
+          >
             <Text style = {styles.textforbutton}>
               Sign Up
             </Text>
@@ -115,7 +143,7 @@ export default function Index() {
           
         </View>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   )
 }
 
@@ -131,7 +159,7 @@ const styles1 = (isActive: any) => {
   upmosttext:{
     paddingBottom:48,
     fontSize:42,
-    fontFamily:"cursive"
+    //fontFamily:"cursive"
   },
   cardviewContainer:{
     marginEnd:16,
@@ -143,13 +171,15 @@ const styles1 = (isActive: any) => {
     shadowRadius:15,
     borderRadius:15,
     padding:16,
+    elevation:8,
     backgroundColor: "white"
   },
   textinput:{
-    alignSelf: "stretch",
-    width:"100%",
+    //alignSelf: "stretch",
+    // width:"100%",
+    flex: 1,
     borderWidth:1,
-    padding:13,
+    padding:4,
     borderRadius:15,
     borderColor: isActive? "white": "white",
     fontSize:16,
@@ -167,7 +197,7 @@ const styles1 = (isActive: any) => {
     borderWidth: 1,
     borderRadius: 15,
     marginTop: 8,
-    paddingVertical:4,
+    //paddingVertical:4,
     borderColor:"#d4d3d3ff",
     backgroundColor: "#ffffffff",
   },
