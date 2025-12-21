@@ -43,7 +43,7 @@ if (!user && !inAuthGroup) {
     <SafeAreaView style = {{flex: 1}}>
       <Stack screenOptions={{headerShown: false}}>
         <Stack.Screen name="(auth)" options={{headerShown:false}}/>
-        <Stack.Screen name="(tab)" options={{headerShown:false}}/>
+        <Stack.Screen name="(tabs)" options={{headerShown:false}}/>
       </Stack>
       </SafeAreaView>
       </SafeAreaProvider>
