@@ -13,14 +13,14 @@ const getsub =  async (req, res) => {
         const sub = await Subscription.find({user: userId}).sort({createdAt: -1}).populate("user", "username")
 
         if(sub.length === 0){
-            return res.status(404).json({message: "No subscription found"})
+            return res.status(200).json({message: "No subscription found"})
         }
         
         return res.status(200).json({sub:sub})
         
     } catch (error) {
-        console.log("Error getiing Subscription")
-        return res.status(500).json({message: "Error getting Subscription"})
+        console.log("Error getting Subscriptionnnnnn:", error)
+        return res.status(500).json({message: "Error getting Subscriptionnnn", error: error.message})
     }
 }
 

@@ -11,9 +11,11 @@ dotenv.config()
 
 const app = express();
 
+// Initialize database before starting server
+initdb();
+
 app.listen(process.env.PORT, () => {
-    console.log("Server is running")
-    initdb();
+    console.log("Server is running on port", process.env.PORT)
 })
 
 app.get("/",(req,res) => {

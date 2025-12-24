@@ -23,8 +23,14 @@ const authorize = async (req, res, next) => {
         next()
 
     } catch (error) {
-        console.log("error verifying the token", error)
-        return res.status(500).json({message: "Error getting token"})
+        console.log("error verifying the token", error.message)
+        if (error.name === 'JsonWebTokenError') {
+            return res.status(401).json({message: "Invalid token"})
+        }
+        if (error.name === 'TokenExpiredError') {
+            return res.status(401).json({message: "Token expired"})
+        }
+        return res.status(500).json({message: "Error verifying token", error: error.message})
     }
 }
 

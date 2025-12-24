@@ -15,6 +15,6 @@ const router = express.Router()
 router.post("/fillsub", authorize ,fillsub)
 router.put("/updatesub/:id", authorize, updatesub)
 router.delete("/deletesub/:id", authorize, deletesub)
-router.get("/getsub", getsub)
+router.get("/getsub",authorize, getsub)
 
 export default router

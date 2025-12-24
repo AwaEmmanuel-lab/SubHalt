@@ -28,21 +28,21 @@ const _layout = () => {
         <Tabs.Screen name='index' options={{
             title: "Home",
             tabBarIcon: ({color, size}) => (
-                <Ionicons name="home-outline" color={"#99be8aff"} size={16}/>
+                <Ionicons name="home-outline" color={"#99be8aff"} size={20}/>
             )
         }}/>
 
         <Tabs.Screen name='Createsub' options={{
             title: "profile",
             tabBarIcon: ({color, size}) => (
-                <Ionicons name="create-outline" color={"#99be8aff"} size={16}/>
+                <Ionicons name="create-outline" color={"#99be8aff"} size={20}/>
             )
         }}/>
 
         <Tabs.Screen name='Profile' options={{
             title: "Profile",
             tabBarIcon: ({color, size}) => (
-                <Ionicons name= "person-outline" color={"#99be8aff"} size={16}/>
+                <Ionicons name= "person-outline" color={"#99be8aff"} size={20}/>
             )
         }}/>
     </Tabs>

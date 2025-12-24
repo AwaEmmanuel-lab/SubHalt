@@ -4,7 +4,7 @@ import User from "../Models/user.model.js";
 const subsciptionSchema = new mongoose.Schema({
     user:{
         type:mongoose.Schema.Types.ObjectId,
-        ref: User
+        ref: "User"
     },
     name:{
         type: String,
@@ -27,7 +27,7 @@ const subsciptionSchema = new mongoose.Schema({
         type: Date,
         required:true
     }
-},{timestamp: true})
+},{timestamps: true})
 
 const Subscription  = mongoose.model("Subscription", subsciptionSchema)
 

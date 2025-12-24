@@ -1,19 +1,19 @@
-import { View, Text, TextInput, StyleSheet, Image, TouchableOpacity, ActivityIndicator } from 'react-native'
+import { View, Text, TextInput, StyleSheet, Image, TouchableOpacity, ActivityIndicator, Alert } from 'react-native'
 import DateTimePicker from "@react-native-community/datetimepicker"
 import React, { useEffect, useState } from 'react'
 import { white } from 'react-native-paper/lib/typescript/styles/themes/v2/colors'
 import { Ionicons } from '@expo/vector-icons'
 import useAuthStore from '@/hooks/provider'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { Redirect, useRouter } from 'expo-router'
 //import { TextInput } from 'react-native-paper'
 
 const Createsub = () => {
 
   const {token, user, createsub, updatesubmsg,sub, loading, checkauth} = useAuthStore()
 
-  useEffect(() => {
-      checkauth()
-    },[])
+  const route = useRouter()
+  
 
   const [startdate, setstartdate] = useState(new Date())
   const [startshow, setstartShow] = useState(false)
@@ -23,6 +23,23 @@ const Createsub = () => {
   const [name, setname] = useState("")
   const [Url, setUrl] = useState("")
   const [amount, setamount] = useState("")
+  const[asynctoken, setasynctoken] = useState("")
+
+  
+
+    const gettoken = async() => {
+      const value = await AsyncStorage.getItem("token")
+
+      if(value){
+        setasynctoken(JSON.parse(value))
+      }
+      
+    }
+
+    useEffect(() => {
+      checkauth()
+      gettoken()
+    },[])
 
   const onchangeforstart = (event: any, selecteddate: any) => {
 
@@ -45,7 +62,7 @@ const Createsub = () => {
 
     const numericamount = parseInt(amount)
     
-    createsub( token, name, Url, startdate, enddate, amount)
+    createsub( asynctoken, name, Url, startdate, enddate, numericamount)
 
   }
 
@@ -68,13 +85,22 @@ const Createsub = () => {
         
         {loading?
           <ActivityIndicator color={"black"} size= {20} style = {{padding: 16}}/>
+          
         :
-          <View>
-          <TouchableOpacity>
+        <View>
+          <TouchableOpacity onPress={()=>{
+            handlesavebtn()
+
+            setname("")
+            setUrl("")
+            setamount("")
+          }} >
             <Ionicons name = "save-outline" size= {18} style = {{padding: 16}}/>
           </TouchableOpacity>
         </View>
         }
+
+        
 
       </View>
 
@@ -102,6 +128,7 @@ const Createsub = () => {
             onChangeText={(text) => {
               setUrl(text)
             }}
+            autoCapitalize= "none"
           />
         </View>
         <View  style = {styles.containerfortextinput}>
@@ -195,7 +222,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     borderWidth:1,
     borderRadius:15,
-    backgroundColor:"#effcebff",
+    backgroundColor:"#99be8aff",
     borderColor:"#70707094",
     marginBottom:16
   },
@@ -215,7 +242,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.5,
     shadowRadius: 15,
     borderColor: "#d4d3d3ff",
-    backgroundColor:"#effcebff",
+    backgroundColor:"#99be8aff",
     //elevation:4
   },
   containerforbutton:{

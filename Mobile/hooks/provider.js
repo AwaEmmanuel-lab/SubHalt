@@ -159,15 +159,21 @@ const useAuthStore = create((set) => ({
         }
     },
 
-    allsub: async() => {
+    allsub: async(token) => {
         set({loading: true, updatesubmsg: null})
         try {
-            const response = await fetch("https://subhalt-2.onrender.com/api/subscription/getsub")
+            const response = await fetch("https://subhalt-2.onrender.com/api/subscription/getsub",{
+                method: "GET",
+                headers:{
+                    Authorization: `Bearer ${token}`,
+                    "content-type": "application/json"
+                },
+            })
             
             const data = await response.json()
 
             if(!response.ok){
-                throw new Error(data.message || "failed to send subscription")
+                throw new Error( data.message ||"failed to get subscription")
             }
 
             set({loading:false, listofallsubscription: data.sub})
