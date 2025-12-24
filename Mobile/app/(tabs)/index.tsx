@@ -8,7 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const index = () => {
 
-  const {listofallsubscription, user, allsub} = useAuthStore() 
+  const {listofallsubscription, user, allsub, logoutUser} = useAuthStore() 
   const[asynctoken, setasynctoken] = useState("")
 
   const gettoken = async() => {
@@ -53,7 +53,7 @@ useEffect(() => {
           </View>
         </View>
         <View style = {styles.containerforheadericon}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => {logoutUser}}>
             <Ionicons name= "log-out-outline" size={20} style = {{padding:4}}/>
           </TouchableOpacity>
 

@@ -16,6 +16,7 @@ initdb();
 
 app.listen(process.env.PORT, () => {
     console.log("Server is running on port", process.env.PORT)
+    console.log("JWT_SECRET loaded:", process.env.JWT_SECRET ? "✓ Set" : "✗ Not set")
 })
 
 app.get("/",(req,res) => {
