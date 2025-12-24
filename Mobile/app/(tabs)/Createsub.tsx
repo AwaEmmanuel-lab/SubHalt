@@ -31,7 +31,7 @@ const Createsub = () => {
       const value = await AsyncStorage.getItem("token")
 
       if(value){
-        setasynctoken(JSON.parse(value))
+        setasynctoken(value)
       }
       
     }
