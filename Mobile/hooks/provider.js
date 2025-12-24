@@ -39,7 +39,7 @@ const useAuthStore = create((set) => ({
 
             set({user:data.user, token:data.token })
             await AsyncStorage.setItem("user", JSON.stringify(data.user))
-            await AsyncStorage.setItem("token", JSON.stringify(data.token))
+            await AsyncStorage.setItem("token", data.token)
             set({loading: false})
         } catch (error) {
             console.log("Error get user and token while signing up")
@@ -78,7 +78,7 @@ const useAuthStore = create((set) => ({
                 loading: false
             })
             await AsyncStorage.setItem("user", JSON.stringify(data.user))
-            await AsyncStorage.setItem("token", JSON.stringify(data.token))
+            await AsyncStorage.setItem("token", data.token)
         } catch (error) {
             set({loading: false})
             console.log("Login Error")
@@ -126,7 +126,7 @@ const useAuthStore = create((set) => ({
         set({loading:true, updatesubmsg: null})
         try {
             
-            const response = await fetch(`https://subhalt-2.onrender.com/updatesub/${id}`, {
+            const response = await fetch(`https://subhalt-2.onrender.com/api/subscription/updatesub/${id}`, {
                 method: "PUT",
                 headers: {
                     Authorization: `Bearer ${token}`,
