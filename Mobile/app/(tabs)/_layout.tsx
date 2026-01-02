@@ -22,25 +22,26 @@ const _layout = () => {
             // width:"90%",
             borderRadius: 20,
             backgroundColor: "white",
-            borderColor: "#99be8aff"
+            borderColor: "#99be8aff",
+            opacity:0.8
         }
     }}>
         <Tabs.Screen name='index' options={{
-            title: "Home",
+            title: "",
             tabBarIcon: ({color, size}) => (
                 <Ionicons name="home-outline" color={"#99be8aff"} size={20}/>
             )
         }}/>
 
         <Tabs.Screen name='Createsub' options={{
-            title: "profile",
+            title: "",
             tabBarIcon: ({color, size}) => (
                 <Ionicons name="create-outline" color={"#99be8aff"} size={20}/>
             )
         }}/>
 
         <Tabs.Screen name='Profile' options={{
-            title: "Profile",
+            title: "",
             tabBarIcon: ({color, size}) => (
                 <Ionicons name= "person-outline" color={"#99be8aff"} size={20}/>
             )

@@ -7,6 +7,7 @@ const useAuthStore = create((set) => ({
     token :null,
     loading: false,
     usermessage:null,
+    error:false,
 
     updatesubmsg:null,
     sub:null,
@@ -15,7 +16,8 @@ const useAuthStore = create((set) => ({
     deletesubmsg:null,
 
     signupuser: async (Username,email,password) =>{
-        set({loading: true})
+
+        set({loading: true,usermessage:null, error:false})
         try {
             const response = await fetch("https://subhalt-2.onrender.com/api/auth/signup", {
                 method: "POST",
@@ -33,7 +35,7 @@ const useAuthStore = create((set) => ({
             const data = await response.json()
 
             if(!response.ok){
-                throw new Error("Error signing up");
+                throw new Error( data.message || "Error signing up");
                 
             }
 
@@ -42,18 +44,17 @@ const useAuthStore = create((set) => ({
             await AsyncStorage.setItem("token", data.token)
             set({loading: false})
         } catch (error) {
-            console.log("Error get user and token while signing up")
-            set({loading: false, usermessage: "Error get user and token while signing up"})
+            console.log("error signing up", error.message)
+            set({loading: false, usermessage: error.message, error:true})
 
-        }finally{
-            set({loading: false})
         }
         
     },
 
     login: async (email, password) => {
+        set({loading: true, usermessage: null, error:false})
         try {
-            set({loading: true, usermessage: null})
+            
 
             const response = await fetch("https://subhalt-2.onrender.com/api/auth/login", {
                 method: "POST",
@@ -69,7 +70,7 @@ const useAuthStore = create((set) => ({
             const data = await response.json()
 
             if(!response.ok){
-                throw new Error("login failed")
+                throw new Error(data.message || "login failed")
             }
 
             set({
@@ -82,7 +83,7 @@ const useAuthStore = create((set) => ({
         } catch (error) {
             set({loading: false})
             console.log("Login Error")
-            set({usermessage: "Login Error"})
+            set({usermessage: error.message, error:true})
         }
     },
 
@@ -176,7 +177,7 @@ const useAuthStore = create((set) => ({
                 throw new Error( data.message ||"failed to get subscription")
             }
 
-            set({loading:false, listofallsubscription: data.sub})
+            set({loading:false, listofallsubscription: data.sub || []})
 
         } catch (error) {
             console.log("error: ",error.message)

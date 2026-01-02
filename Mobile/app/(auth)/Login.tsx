@@ -1,15 +1,20 @@
-import { StyleSheet, Text, View, TextInput, Platform, TouchableOpacity} from "react-native";
+import { StyleSheet, Text, View, TextInput, Platform, TouchableOpacity, ActivityIndicator} from "react-native";
 import * as React from "react"
 import {Ionicons} from "@expo/vector-icons";
 import { useState } from "react";
 import { Link } from "expo-router";
+import useAuthStore from "@/hooks/provider.js";
 
 
 export default function Login() {
 
+  const {loading, login, error, usermessage} = useAuthStore()
+
   const [isActive, setisActive] = useState(false)
   const [seepassword, setseepassword] = useState(false)
-
+  const [email, setemail] = useState("")
+  const [password, setpassword] = useState("")
+  
   const toggleeyebutton = () => {
     setseepassword(!seepassword)
   }
@@ -44,6 +49,10 @@ export default function Login() {
             onBlur={() => {
               setisActive(false)
             }}
+            onChangeText={(text) => {
+              setemail(text)
+            }}
+            value= {email}
             />
           </View>
           
@@ -63,6 +72,10 @@ export default function Login() {
             underlineColorAndroid="transparent"
             style = {styles.textinput}
             secureTextEntry = {seepassword}
+            onChangeText={(text) => {
+              setpassword(text)
+            }}
+            value = {password}
             />
             <View style = {{padding: 8,}}>
               <TouchableOpacity onPress={() => {
@@ -78,12 +91,28 @@ export default function Login() {
             </View>   
           </View>
         </View>
+
+        {error && (
+          <Text style={{ color: "red", marginBottom: 8 }}>
+            {usermessage}
+          </Text>
+        )}
+
+        
         {/* FOR THE SUBMIT BUTTON */}
         <View style = {styles.containerforbutton}>
-          <TouchableOpacity style = {styles.touchablebutton}>
-            <Text style = {styles.textforbutton}>
-              Login
-            </Text>
+          <TouchableOpacity style = {styles.touchablebutton} onPress={() => {
+            login(email, password)
+          }}>
+            {loading?
+
+              <ActivityIndicator size="small" color="#ffffff" />
+            :
+              <Text style = {styles.textforbutton}>
+                Login
+              </Text>
+            }
+            
           </TouchableOpacity>
         </View>
         {/* FOR THE NAVIGATION TO LOGIN */}

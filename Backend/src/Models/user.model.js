@@ -15,6 +15,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    pushToken: {
+        type: String,
+        default: ""
+    },
 },{timestamps:true})
 
 userSchema.methods.comparepassword = async function (password){

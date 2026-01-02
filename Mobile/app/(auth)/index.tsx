@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TextInput, Platform, TouchableOpacity, KeyboardAvoidingView} from "react-native";
+import { StyleSheet, Text, View, TextInput, Platform, TouchableOpacity, KeyboardAvoidingView, ActivityIndicator} from "react-native";
 import * as React from "react"
 import {Ionicons} from "@expo/vector-icons";
 import { useState } from "react";
@@ -14,7 +14,7 @@ export default function Index() {
   const [email, setemail] = useState("")
   const [password, setpassword] = useState("")
 
-  const {signupuser} = useAuthStore()
+  const {signupuser, error, usermessage, loading} = useAuthStore()
 
   const handleclickonsignup = () => {
     signupuser(name, email, password)
@@ -118,6 +118,12 @@ export default function Index() {
             </View>   
           </View>
         </View>
+
+        {error && (
+                  <Text style={{ color: "red", marginBottom: 8 }}>
+                    {usermessage}
+                  </Text>
+                )}
         {/* FOR THE SUBMIT BUTTON */}
         <View style = {styles.containerforbutton}>
           <TouchableOpacity style = {styles.touchablebutton}
@@ -125,9 +131,13 @@ export default function Index() {
               handleclickonsignup()
             }}
           >
-            <Text style = {styles.textforbutton}>
+            {loading ? 
+              <ActivityIndicator size="small" color="#ffffff" />
+            : 
+              <Text style = {styles.textforbutton}>
               Sign Up
             </Text>
+            }
           </TouchableOpacity>
         </View>
         {/* FOR THE NAVIGATION TO LOGIN */}
